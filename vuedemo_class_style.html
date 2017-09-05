@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .active {
+        width: 100px;
+        height: 100px;
+        background: red;
+    }
+
+    .text-danger {
+        color: green;
+    }
+</style>
+<body>
+<div id="class-example">
+    <!--  定义形式  -->
+    <!--<div class="static" :class="{active:isActive}">警告</div>-->
+
+    <!--  Object形式,计算后  -->
+    <!--<div class="static" :class="classObject">警告</div>-->
+
+    <!--数组形式,多个class匹配-->
+    <!--<div class="static" :class="[activeClass, errorClass]">警告</div>-->
+
+    <!-- 三元运算结合数组,多个class匹配 -->
+    <!--<div class="static" :class="[isActive ? activeClass : '', errorClass]">警告</div>-->
+
+    <!-- 样式绑定对象 -->
+    <!--<div class="static" :style="styleObject">样式</div>-->
+
+    <!-- 数组样式表,后面覆盖前面 -->
+    <!--<div class="static" :style="[baseStyles, overridingStyles]">样式</div>-->
+
+    <div :style="{width:'100px', background:'red', display: ['-webkit-box', '-ms-flexbox', 'flex'] }">1234</div>
+</div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="node_modules/lodash/lodash.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#class-example',
+        data: {
+//            isActive: false,
+//            error: null,
+//            activeClass: 'active',
+//            errorClass: 'text-danger'
+//            styleObject:{
+//                background:'orange',
+//                color:'#ccc',
+//                fontSize:'15px'//驼峰命名
+//            }
+            baseStyles:{
+                width:'100px'
+            },
+            overridingStyles:{
+                color:'#f60',
+                background:"red",
+                width:'1000px'
+            }
+
+        },
+        computed: {
+            classObject: function () {
+                return {
+                    active: this.isActive && !this.error,
+                    'text-danger': this.error && this.error.type === 'fatal'
+                }
+            }
+        }
+    });
+
+</script>
