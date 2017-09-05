@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="filter-example">
+    <!-- 可以使用计算属性的时候 -->
+    <!--<ul><li v-for="n in evenNumbers">{{ n }}</li></ul>-->
+    <!-- 计算属性不适用的时候 -->
+    <ul><li v-for="n in numbers">{{ n }}</li></ul>
+    <ul><li v-for="n in even(numbers)">{{ n }}</li></ul>
+</div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="node_modules/lodash/lodash.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#filter-example',
+        data: {
+            numbers: [ 1, 2, 3, 4, 5 ]
+        },
+//        采用计算属性,缓存
+//        computed: {
+//            evenNumbers: function () {
+//                return this.numbers.filter(function (number) {
+//                    return number % 2 === 0
+//                })
+//            }
+//        }
+//        计算属性不适用则使用method
+        methods:{
+            even:function(numbers){
+                return numbers.filter(function(item){
+                    return item> 3;
+                })
+            }
+        }
+    });
+
+</script>

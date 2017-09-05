@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="for-example">
+    <!-- for 循环 括号内可以index可选序号,另外 in 与 of 都可以用-->
+    <!-- 数组 循环-->
+    <ul>
+        <li>
+            {{parentMessage}}
+        </li>
+        <li v-for="(item,index) of items">
+            {{parentMessage}}/{{index+1 +'、'+ item.message}}
+        </li>
+    </ul>
+    <!-- 对象遍历 -->
+    <ul>
+        <li v-for="(value,key,index) in itemObj">
+            {{index+1 +'、' + key +':'+ value}}
+        </li>
+    </ul>
+</div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="node_modules/lodash/lodash.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#for-example',
+        data: {
+            parentMessage: '父级信息',
+            items: [
+                {message: 'Foo'},
+                {message: 'Bar'}
+            ],
+            userProfile:{
+
+            },
+            itemObj: {
+                a: 1,
+                b: 2
+            }
+        },
+        methods: {},
+        computed:{
+
+        }
+    });
+    /*---------------- 数组的坑 -----------------------*/
+//    vue中不能对数组对应数组对应下标的值做改变
+//    如:   vm.items[indexOfItem] = newValue
+//    解决:vm.items.splice(1, 1, {message:'mySplice'})代替
+//    vue中不能直接对数组长度做改变,也是通过splice来操作数组
+//    如 : vm.items.length = 1;
+//    解决: vm.items.splice(1)
+    /*---------------- 对象的坑 -----------------------*/
+//    第一种改变对象属性的方法
+    //Vue.set(vm.userProfile, 'age', 27);
+//    第二种该表对象属性的方法
+    //vm.$set(vm.userProfile, 'age', 29);
+//    一次设置多个属性
+    vm.userProfile = Object.assign({}, vm.userProfile, {
+        age: 27,
+        favoriteColor: 'Vue Green'
+    });
+    console.log(vm.userProfile)
+</script>
