@@ -20,8 +20,11 @@
     <!-- 可以使用计算属性的时候 -->
     <!--<ul><li v-for="n in evenNumbers">{{ n }}</li></ul>-->
     <!-- 计算属性不适用的时候 -->
-    <ul><li v-for="n in numbers">{{ n }}</li></ul>
-    <ul><li v-for="n in even(numbers)">{{ n }}</li></ul>
+    <!--<ul><li v-for="n in numbers">{{ n }}</li></ul>-->
+    <!--<ul><li v-for="n in even(numbers)">{{ n }}</li></ul>-->
+
+    <!-- 一个数值的取值范围也可以在for中实现 -->
+    <ul><li v-for="item in 50">{{item}}</li></ul>
 </div>
 </body>
 </html>
