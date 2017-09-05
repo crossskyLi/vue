@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="click-example">
+        <button @click="add">增加 1</button>
+        <p>这个按钮被点击了 {{ counter }} 次。</p>
+</div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="node_modules/lodash/lodash.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#click-example',
+        data:{
+            counter:0
+        },
+        method:{
+            add:function(){
+                this.counter++;
+            }
+        }
+    })
+</script>

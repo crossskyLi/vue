@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="component-example">
+    <input v-model="newTodoText"
+           @keyup.enter="addNewTodo"
+           placeholder="enter添加">
+    <ul>
+        <li is="todo-item"
+            v-for="(todo, index) in todos"
+            :key="todo.id"
+            :title="todo.title"
+            @remove="todos.splice(index, 1)">
+        </li>
+        <!-- is 相当于模版 -->
+        <todo-item v-for="(todo, index) in todos"
+                   :key="todo.id"
+                   :title="todo.title"
+                   @remove="todos.splice(index, 1)">
+        </todo-item>
+    </ul>
+</div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="node_modules/lodash/lodash.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+    Vue.component('todo-item', {
+        template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">X</button>\
+    </li>\
+  ',
+        props: ['title']
+    });
+    var vm = new Vue({
+        el: '#component-example',
+        data: {
+            newTodoText: "",
+            todos: [
+                {
+                    id: 1,
+                    title: 'Do the dishes',
+                },
+                {
+                    id: 2,
+                    title: 'Take out the trash',
+                },
+                {
+                    id: 3,
+                    title: 'Mow the lawn'
+                }
+            ],
+            nextTodoId: 4
+        },
+        methods: {
+            addNewTodo: function () {
+                var index = this.todos.length - 1;
+                var id = this.todos[index].id++;
+                var str = this.newTodoText + id;
+                this.todos.push({
+                    id: id,
+                    title: str
+                });
+                this.newTodoText = ''
+            }
+        }
+    });
+</script>
