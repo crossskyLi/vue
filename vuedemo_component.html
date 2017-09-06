@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="component-example">
+    <my-component></my-component>
+</div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="node_modules/lodash/lodash.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+    //    组件在注册之后，
+    // 便可以在父实例的模块中以自定义元素
+    // <my-component></my-component> 的形式使用。
+    // 要确保在初始化根实例之前注册了组件：
+    // 全局注册组件
+
+    //    Vue.component('my-component',{
+    //        template:'<div>一个简单的组件</div>'
+    //    })
+
+    var Child = {
+        template: '<div>简单的组件</div>'
+    };
+    var vm = new Vue({
+        el: '#component-example',
+        data: {},
+        //methods 方法,记得要加s,方法是很多个不是一个
+        methods: {
+            log: function (message) {
+                console.log(message)
+            }
+        },
+        components: {
+            // <my-component> 将只在父模板可用
+            'my-component': Child
+        }
+    });
+    console.log(vm)
+</script>

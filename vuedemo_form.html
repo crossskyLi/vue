@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="form-example">
+    <!--<input v-model="message" placeholder='hit me'>-->
+    <!--<p>Message is: {{ message }}</p>-->
+    <!-- textarea 预设值-->
+    <!--<span>Multiline message is:</span>-->
+    <!--<p style="white-space: pre-line">{{ message }}</p>-->
+    <!--<textarea v-model="message" placeholder="add multiple lines"></textarea>-->
+    <!--  复选框  -->
+    <!--<input type="checkbox" id="checkbox" v-model="checked">-->
+    <!--<label for="checkbox">{{ checked }}</label>-->
+
+    <!--  多个复选框绑定数组  -->
+    <!--<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">-->
+    <!--<label for="jack">Jack</label>-->
+    <!--<input type="checkbox" id="john" value="John" v-model="checkedNames">-->
+    <!--<label for="john">John</label>-->
+    <!--<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">-->
+    <!--<label for="mike">Mike</label>-->
+    <!--<br>-->
+    <!--<span>Checked names: {{ checkedNames }}</span>-->
+
+    <!--  单选框  -->
+
+    <!--<div id="example-4">-->
+    <!--<input type="radio" id="one" value="0" v-model="picked">-->
+    <!--<label for="one">One</label>-->
+    <!--<br>-->
+    <!--<input type="radio" id="two" value="1" v-model="picked">-->
+    <!--<input type="radio" id="third" value="1" v-model="picked2">-->
+    <!--<label for="two">Two</label>-->
+    <!--<br>-->
+    <!--<span>Picked: {{ picked }}</span>-->
+    <!--</div>-->
+
+    <!--  单选列表  -->
+    <!--<select v-model="selected">-->
+        <!--<option disabled value="">请选择</option>-->
+        <!--<option>A</option>-->
+        <!--<option>B</option>-->
+        <!--<option>C</option>-->
+    <!--</select>-->
+    <!--<span>Selected: {{ selected }}</span>-->
+
+    <!--  多选列表  -->
+    <!--<select v-model="selected" multiple style="width: 50px">-->
+        <!--<option>A</option>-->
+        <!--<option>B</option>-->
+        <!--<option>C</option>-->
+    <!--</select>-->
+    <!--<br>-->
+    <!--<span>Selected: {{ selected }}</span>-->
+
+    <!--  动态选项列表  -->
+    <!--<select v-model="selected">-->
+        <!--<option v-for="option in options" :value="option.value">-->
+            <!--{{ option.text }}-->
+        <!--</option>-->
+    <!--</select>-->
+
+    <!--  绑定制定的value或者另外的对象或值  -->
+    <!-- 当选中时，`picked` 为字符串 "a" -->
+    <!--<input type="radio" v-model="picked" :value="radioA">-->
+    <!-- `toggle` 为 true 或 false -->
+    <!--<input type="checkbox" v-model="toggle" :true-value="toggleA" :false-value="toggleB"><span>复选框切换</span>-->
+    <!-- 当选中时，`selected` 为字符串 "abc" -->
+    <!--<select v-model="selected">-->
+        <!--<option value="abc">ABC</option>-->
+    <!--</select>-->
+    <!--{{toggle}}{{picked}}-->
+
+    <!-- 在 "change" 而不是 "input" 事件中更新 -->
+    <!--<input v-model.lazy="message" >{{message}}-->
+
+    <!--如果想自动将用户的输入值转为 Number 类型（如果原值的转换结果为 NaN 则返回原值）-->
+    <!--<input v-model.number="message" @keyup="log(message)" >{{message}}-->
+
+    <!--如果要自动过滤用户输入的首尾空格，可以添加 trim 修饰符到 v-model 上过滤输入：-->
+    <input v-model.trim="message">
+</div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="node_modules/lodash/lodash.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#form-example',
+        data: {
+            message: '123',
+//            checked: true,
+//            checkedNames: []
+//            picked:'',
+//            picked2:''
+            picked:'',
+            selected: 'B',
+            radioA:'RADIO',
+            options: [
+                { text: 'One', value: 'A' },
+                { text: 'Two', value: 'B' },
+                { text: 'Three', value: 'C' }
+            ],
+            toggle:'',
+            toggleA:'aaaaaaa',
+            toggleB:'bbbbbbb'
+        },
+        //methods 方法,记得要加s,方法是很多个不是一个
+        methods: {
+            log:function(message){
+                console.log(message)
+            }
+        }
+    });
+
+</script>
