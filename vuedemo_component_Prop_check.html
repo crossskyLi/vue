@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="component-example">
+    <!--<input v-model="propA">-->
+    <my-component :prop-b='propB'
+                  :prop-a='propA'
+                  :prop-a='propA'
+                  :prop-c='propC'
+                  :prop-d='propD'
+                  :prop-e='propE'
+                  :prop-f='propF'>
+    </my-component>
+
+</div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="node_modules/lodash/lodash.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+    //       验证props格式
+    Vue.component('my-component', {
+//        String
+//        Number
+//        Boolean
+//        Function
+//        Object
+//        Array
+//        Symbol
+        //做到PropD
+        props: {
+            propA: Number,//必须是数字
+            propB: [String, Number],//可以是字符串也可是数字
+            propC: {//必须是字符串
+                type: Number,
+                required: true
+            },
+            propD: {//必须是数字,如果格式不对,默认是100
+                type: Number,
+                default: 100
+            },
+            propE: {
+                type: Object,
+                default: function () {
+                    return {message: 'hello'}
+                }
+            },
+            // 自定义验证函数
+            propF: {
+                validator: function (value) {
+                    return value > 10
+                }
+            }
+
+        },
+        //template 必须有一个根元素例如div,vue组件不知道是不是也需要?
+        template: '<div>' +
+        '<span>{{propA}}</span><br/>' +
+        '<span>{{propB}}</span><br/>' +
+        '<span>{{propC}}</span><br/>' +
+        '<span>{{propD}}</span><br/>' +
+        '<span>{{propE}}</span><br/>' +
+        '<span>{{propF}}</span><br/>' +
+        '</div>',
+    });
+    var vm = new Vue({
+        el: '#component-example',
+        data: {
+            propA: 1,
+            propB: 'b可以是字符串也可是数字',
+            propC: 456789,
+            propD: {
+                type:  'b可以是字符串也可是数字',
+                default: 15
+            },
+            propE: {
+                type: Object,
+                default: function () {
+                    return {message: 'hello'}
+                }
+            },
+            // 自定义验证函数
+            propF: {
+                validator: function (value) {
+                    return value > 10
+                }
+            }
+        },
+        //methods 方法,记得要加s,方法是很多个不是一个
+        methods: {
+            log: function (message) {
+                console.log(message)
+            }
+        }
+    });
+
+</script>

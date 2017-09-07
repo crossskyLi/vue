@@ -18,6 +18,8 @@
 <body>
 <div id="component-example">
     <my-component></my-component>
+    <my-component></my-component>
+    <my-component></my-component>
 </div>
 </body>
 </html>
@@ -25,24 +27,15 @@
 <script src="node_modules/lodash/lodash.js"></script>
 <script src="node_modules/axios/dist/axios.js"></script>
 <script>
-    //    组件在注册之后，
-    // 便可以在父实例的模块中以自定义元素
-    // <my-component></my-component> 的形式使用。
-    // 要确保在初始化根实例之前注册了组件：
-    // 全局注册组件
 
     Vue.component('my-component', {
         template: '<button @click="counter += 1">{{ counter }}</button>',
         data: function () {
-            return {
-                counter: 0
-            }
+            var data = {counter:0 }
+            return data
         }
-    })
+    });
 
-    var Child = {
-        template: '<div>简单的组件</div>'
-    };
     var vm = new Vue({
         el: '#component-example',
         data: {},
@@ -51,10 +44,6 @@
             log: function (message) {
                 console.log(message)
             }
-        },
-        components: {
-            // <my-component> 将只在父模板可用
-            'my-component': Child
         }
     });
     console.log(vm)

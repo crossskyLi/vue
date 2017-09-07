@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="component-example">
+    <input v-model="msg">
+    <my-component :message='msg'></my-component>
+</div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="node_modules/lodash/lodash.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+
+    Vue.component('my-component', {
+        //声明props
+        props:['message'],
+        template: '<span>{{ componentMsg }}</span>',
+        //1.prop 作为初始值传入后，子组件想把它当作局部数据来用；
+        //处理方法:定义一个局部变量,并用prop的值初始化它
+//        data:function(){
+//            //this.message = 11;
+//            console.log(this)
+//            return {componentMsg:this.message}
+//        }
+        //2.prop 作为初始值传入，由子组件处理成其它数据输出。
+        //处理方法:定义一个计算属性，处理 prop 的值并返回
+        computed: {
+            componentMsg: function () {
+                //this.message = '123';
+                return this.message.trim().toLowerCase()
+            }
+        }
+    });
+    var vm = new Vue({
+        el: '#component-example',
+        data: {
+            msg:'acbd'
+        },
+        //methods 方法,记得要加s,方法是很多个不是一个
+        methods: {
+            log: function (message) {
+                console.log(message)
+            }
+        }
+    });
+
+</script>
