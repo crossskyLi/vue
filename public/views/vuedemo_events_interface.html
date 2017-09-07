@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="event-interface-example">
+    <p>{{ total }}</p>
+    <!--
+        子组件添加事件属性,increment,
+        当接受到事件的时候执行父级的incrementTotal,
+        子组件已经和它外部完全解耦了
+    -->
+    <event-interface-component v-on:increment="incrementTotal(5)"></event-interface-component>
+    <event-interface-component v-on:increment="incrementTotal(2)"></event-interface-component>
+    <!-- 这里父级没有接受事件反馈,则不回应,不处理-->
+    <event-interface-component></event-interface-component>
+    <!-- 根组件上监听原生事件 ,相当于把组件看作一个操作的对象-->
+    <!--<event-interface-component v-on:click.native="incrementTotal(0)"></my-component>-->
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../node_modules/lodash/lodash.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script>
+
+    //子组件已经和它外部完全解耦了。它所做的只是报告自己的内部事件，至于父组件是否关心则与它无关
+    Vue.component('event-interface-component', {
+        //template 必须有一个根元素例如div,vue组件不知道是不是也需要?
+        data: function () {
+            return {counter: 0}
+        },
+        methods: {
+            incrementCounter: function () {
+                this.counter += 1;
+                this.$emit('increment')
+            }
+        },
+        template: '<button @click="incrementCounter">{{ counter }}</button>'
+    });
+    var vm = new Vue({
+        el: '#event-interface-example',
+        data: {
+            total: 0
+        },
+        //methods 方法,记得要加s,方法是很多个不是一个
+        methods: {
+            incrementTotal: function (num) {
+                this.total += num;
+            }
+        }
+    });
+    //console.log(vm.__proto__)
+
+</script>

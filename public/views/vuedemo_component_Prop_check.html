@@ -44,6 +44,7 @@
 //        Array
 //        Symbol
         //做到PropD
+        //以下验证出错,会在控制台打印相应的消息
         props: {
             //必须是数字
             propA: Number,
@@ -100,5 +101,6 @@
             }
         }
     });
+    console.log(vm.__proto__)
 
 </script>

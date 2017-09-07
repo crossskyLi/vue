@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="input-example">
+    <currency-input
+            label="Price"
+            v-model="price"
+            @keyup = "total"
+    ></currency-input>
+    <currency-input
+            label="Shipping"
+            v-model="shipping"
+            @keyup = "total"
+    ></currency-input>
+    <currency-input
+            label="Handling"
+            v-model="handling"
+            @keyup = "total"
+    ></currency-input>
+    <currency-input
+            label="Discount"
+            v-model="discount"
+            @keyup = "total"
+    ></currency-input>
+
+    <p>Total: ${{ total }}</p>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../node_modules/lodash/lodash.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script src="../node_modules/currency-validator/index.js"></script>
+<script>
+    //子组件已经和它外部完全解耦了。它所做的只是报告自己的内部事件，至于父组件是否关心则与它无关
+    Vue.component('currency-input', {
+        //template 必须有一个根元素例如div,vue组件不知道是不是也需要?
+
+        template: '\
+                    <div>\
+                      <label v-if="label">{{ label }}</label>\
+                      $\
+                      <input\
+                        ref="input"\
+                        v-bind:value="value"\
+                        v-on:input="updateValue($event.target.value)"\
+                        v-on:focus="selectAll"\
+                        v-on:blur="formatValue"\
+                      >\
+                    </div>\
+                  ',
+        props: {
+            value: {
+                type: Number,
+                default: 0
+            },
+            label: {
+                type: String,
+                default: ''
+            }
+        },
+        mounted: function () {
+            this.formatValue()
+        },
+        methods: {
+            updateValue: function (value) {
+                var result = currencyValidator.parse(value, this.value)
+                if (result.warning) {
+                    this.$refs.input.value = result.value
+                }
+                this.$emit('input', result.value)
+            },
+            formatValue: function () {
+                this.$refs.input.value = currencyValidator.format(this.value)
+            },
+            selectAll: function (event) {
+                // Workaround for Safari bug
+                // http://stackoverflow.com/questions/1269722/selecting-text-on-focus-using-jquery-not-working-in-safari-and-chrome
+                setTimeout(function () {
+                    event.target.select()
+                }, 0)
+            }
+        }
+    });
+    var vm = new Vue({
+        el: '#input-example',
+        data: {
+            price: 2.88,
+            shipping: 1,
+            handling: 1,
+            discount: 1
+        },
+        computed: {
+            total: function () {
+                return ((
+                        this.price * 100 +
+                        this.shipping * 100 +
+                        this.handling * 100 -
+                        this.discount * 100
+                ) / 100).toFixed(2)
+            }
+        }
+    })
+
+</script>

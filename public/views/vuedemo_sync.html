@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="sync-example">
+    <!--
+        子组件改变父组件的值
+    -->
+    <p>{{bar}}</p>
+    <sync-component :foo.sync="bar"></sync-component>
+    <!--相当于-->
+    <sync-component :foo="bar" @update:foo="val => bar = val"></sync-component>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../node_modules/lodash/lodash.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script>
+
+    //子组件已经和它外部完全解耦了。它所做的只是报告自己的内部事件，至于父组件是否关心则与它无关
+    Vue.component('sync-component', {
+        //template 必须有一个根元素例如div,vue组件不知道是不是也需要?
+        data: function () {
+            return {counter: 0}
+        },
+        methods: {
+            syncFarther: function () {
+                var newValue =4;
+                //子组件改变父组件
+                this.$emit('update:foo', newValue)
+            }
+        },
+        template: '<button @click="syncFarther">{{ counter }}</button>'
+    });
+    var vm = new Vue({
+        el: '#sync-example',
+        data: {
+            bar: 0
+        },
+        //methods 方法,记得要加s,方法是很多个不是一个
+        methods: {
+
+        }
+    });
+    //console.log(vm.__proto__)
+
+</script>
