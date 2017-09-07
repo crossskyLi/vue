@@ -30,9 +30,9 @@
 </div>
 </body>
 </html>
-<script src="js/vue.js"></script>
-<script src="node_modules/lodash/lodash.js"></script>
-<script src="node_modules/axios/dist/axios.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../node_modules/lodash/lodash.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
 <script>
     //       验证props格式
     Vue.component('my-component', {
@@ -45,13 +45,17 @@
 //        Symbol
         //做到PropD
         props: {
-            propA: Number,//必须是数字
-            propB: [String, Number],//可以是字符串也可是数字
-            propC: {//必须是字符串
+            //必须是数字
+            propA: Number,
+            //可以是字符串也可是数字
+            propB: [String, Number],
+            //必须是数字
+            propC: {
                 type: Number,
                 required: true
             },
-            propD: {//必须是数字,如果格式不对,默认是100
+            //必须是数字,如果格式不对,默认是100
+            propD: {
                 type: Number,
                 default: 100
             },
@@ -61,7 +65,7 @@
                     return {message: 'hello'}
                 }
             },
-            // 自定义验证函数
+            // 自定义验证函数,必须是大于10的数字
             propF: {
                 validator: function (value) {
                     return value > 10
@@ -84,23 +88,10 @@
         data: {
             propA: 1,
             propB: 'b可以是字符串也可是数字',
-            propC: 456789,
-            propD: {
-                type:  'b可以是字符串也可是数字',
-                default: 15
-            },
-            propE: {
-                type: Object,
-                default: function () {
-                    return {message: 'hello'}
-                }
-            },
-            // 自定义验证函数
-            propF: {
-                validator: function (value) {
-                    return value > 10
-                }
-            }
+            propC:123,
+            propD: 5,
+            propE: {message:'1323'},
+            propF: 15
         },
         //methods 方法,记得要加s,方法是很多个不是一个
         methods: {
