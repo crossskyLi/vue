@@ -17,28 +17,7 @@
 </style>
 <body>
 <div id="input-example">
-    <currency-input
-            label="Price"
-            v-model="price"
-            @keyup="total"
-    ></currency-input>
-    <currency-input
-            label="Shipping"
-            v-model="shipping"
-            @keyup="total"
-    ></currency-input>
-    <currency-input
-            label="Handling"
-            v-model="handling"
-            @keyup="total"
-    ></currency-input>
-    <currency-input
-            label="Discount"
-            v-model="discount"
-            @keyup="total(1)"
-    ></currency-input>
 
-    <p>Total: ${{ total }}</p>
 </div>
 </body>
 </html>
