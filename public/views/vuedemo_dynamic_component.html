@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="dynamic-component-example">
+    <!-- 保留的component 用来动态绑定组件 -->
+    <component></component>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../node_modules/lodash/lodash.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script src="../node_modules/currency-validator/index.js"></script>
+<script>
+    Vue.component('my-awesome-list', {
+        template: '<div class="child"><ul>\
+        <slot name="item" \
+        v-for = "item in items" :text = "item.text"></slot>\
+        <li>子组件</li>\
+        </ul></div>\
+         ',
+        props:['items'],
+        methods: {
+        }
+    });
+    var vm = new Vue({
+        el: '#dynamic-component-example',
+        data: {
+            currentView:'home'
+        },
+        components: {
+            home:{},
+        }
+    })
+//    直接绑定到组件对象上
+//    var Home = {
+//        template: '<p>Welcome home!</p>'
+//    }
+//    var vm = new Vue({
+//        el: '#example',
+//        data: {
+//            currentView: Home
+//        }
+//    })
+</script>

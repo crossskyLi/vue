@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+</style>
+<body>
+<div id="scope-example">
+    <my-awesome-list :items="lists">
+        <!-- 作用域插槽也可以是具名的 -->
+        <template slot="item" scope="props">
+            <li class="my-fancy-item">{{props.text}}</li>
+        </template>
+    </my-awesome-list>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../node_modules/lodash/lodash.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script src="../node_modules/currency-validator/index.js"></script>
+<script>
+    Vue.component('my-awesome-list', {
+        template: '<div class="child"><ul>\
+        <slot name="item" \
+        v-for = "item in items" :text = "item.text"></slot>\
+        <li>子组件</li>\
+        </ul></div>\
+         ',
+        props:['items'],
+        methods: {
+        }
+    });
+    var vm = new Vue({
+        el: '#scope-example',
+        data: {
+            lists:[
+                {text:"1"},
+                {text:"2"},
+                {text:"3"},
+                {text:"4"},
+                {text:"5"},
+                {text:"6"}
+            ]
+        },
+        computed: {
+
+        }
+    })
+</script>
